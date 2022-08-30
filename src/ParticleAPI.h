@@ -9,25 +9,8 @@
 #pragma once
 #include "Global.h"
 
-#ifdef PARTICLE_EXPORTS
-#define PTAPI __declspec(dllexport)
-#else
-#define PTAPI __declspec(dllimport)
-#endif
-
 class ParticleCUI {
 public:
-    unsigned int displayRadius;
-    bool highDetial;
-    bool doubleSide;
-
-    ParticleCUI()
-    : displayRadius(UINT_MAX), highDetial(true), doubleSide(true) {
-    }
-    ParticleCUI(unsigned int dr, bool hd = true, bool ds = true)
-    : displayRadius(dr), highDetial(hd), doubleSide(ds) {
-    }
-
     enum Direction : char {
         NEG_Y = 0,
         POS_Y = 1,
@@ -70,21 +53,15 @@ public:
         NUM15 = 15,
         NUM16 = 16,
     };
-
-    PTAPI void spawnParticle(Vec3 const& pos, std::string const& particleName, int dimId);
-    PTAPI void spawnParticle(BlockPos const& pos, std::string const& particleName, int dimId);
-
-    PTAPI void drawPoint(Vec3 const& pos, int dimId, enum PointSize lineWidth = PointSize::PX4, enum class mce::ColorPalette color = mce::ColorPalette::WHITE);
-    PTAPI void drawPoint(BlockPos const& pos, int dimId, enum PointSize lineWidth = PointSize::PX4, enum class mce::ColorPalette color = mce::ColorPalette::WHITE);
-    PTAPI void drawNumber(Vec3 const& pos, int dimId, enum NumType num = NumType::NUM0, enum class mce::ColorPalette color = mce::ColorPalette::WHITE);
-    PTAPI void drawNumber(BlockPos const& pos, int dimId, enum NumType num = NumType::NUM0, enum class mce::ColorPalette color = mce::ColorPalette::WHITE);
-    PTAPI void drawAxialLine(const Vec3& originPoint, enum Direction direction, double length, int dimId, enum class mce::ColorPalette color = mce::ColorPalette::WHITE);
-    PTAPI void drawOrientedLine(const Vec3& start, const Vec3& end, int dimId, enum PointSize lineWidth = PointSize::PX4, double minSpacing = 1, int maxParticlesNum = 64, enum class mce::ColorPalette color = mce::ColorPalette::WHITE);
-    PTAPI void drawOrientedLine(const BlockPos& start, const BlockPos& end, int dimId, enum PointSize lineWidth = PointSize::PX4, double minSpacing = 1, int maxParticlesNum = 64, enum class mce::ColorPalette color = mce::ColorPalette::WHITE);
-    PTAPI void drawCuboid(const AABB& aabb, int dimId, enum class mce::ColorPalette color = mce::ColorPalette::WHITE);
-    PTAPI void drawCuboid(const BoundingBox& box, int dimId, enum class mce::ColorPalette color = mce::ColorPalette::WHITE);
-    PTAPI void drawCuboid(const BlockPos& box, int dimId, enum class mce::ColorPalette color = mce::ColorPalette::WHITE);
-    PTAPI void drawCircle(const Vec3& originPoint, enum Direction facing, double radius, int dimId, enum PointSize lineWidth = PointSize::PX4, double minSpacing = 1, int maxParticlesNum = 64, enum class mce::ColorPalette color = mce::ColorPalette::WHITE);
-    PTAPI void drawCircle(const BlockPos& originPoint, enum Direction facing, double radius, int dimId, enum PointSize lineWidth = PointSize::PX4, double minSpacing = 1, int maxParticlesNum = 64, enum class mce::ColorPalette color = mce::ColorPalette::WHITE);
 };
-    
+
+
+extern "C"{
+void PTAPI_spawnParticle(int displayRadius, Vec3 const& pos, std::string const& particleName, int dimId);
+void PTAPI_drawPoint(int displayRadius, Vec3 const& pos, int dimId, char lineWidth = ParticleCUI::PointSize::PX4, enum class mce::ColorPalette color = mce::ColorPalette::WHITE);
+void PTAPI_drawNumber(int displayRadius, Vec3 const& pos, int dimId, char num = ParticleCUI::NumType::NUM0, enum class mce::ColorPalette color = mce::ColorPalette::WHITE);
+void PTAPI_drawAxialLine(int displayRadius, bool highDetial, bool doubleSide, const Vec3& originPoint, char direction, double length, int dimId, enum class mce::ColorPalette color = mce::ColorPalette::WHITE);
+void PTAPI_drawOrientedLine(int displayRadius, const Vec3& start, const Vec3& end, int dimId, char lineWidth = ParticleCUI::PointSize::PX4, double minSpacing = 1, int maxParticlesNum = 64, enum class mce::ColorPalette color = mce::ColorPalette::WHITE);
+void PTAPI_drawCuboid(int displayRadius, bool highDetial, bool doubleSide, const AABB& aabb, int dimId, enum class mce::ColorPalette color = mce::ColorPalette::WHITE);
+void PTAPI_drawCircle(int displayRadius, const Vec3& originPoint, char facing, double radius, int dimId, char lineWidth = ParticleCUI::PointSize::PX4, double minSpacing = 1, int maxParticlesNum = 64, enum class mce::ColorPalette color = mce::ColorPalette::WHITE);
+}
