@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 env:
-  PLUGIN_NAME: Plugin
-  SOLUTION_FILE_PATH: ./Plugin.sln
+  PLUGIN_NAME: ParticleAPI
+  SOLUTION_FILE_PATH: ./ParticleAPI.sln
   VERSION_FILE_PATH: src/Version.h
   BUILD_CONFIGURATION: Release
   Platform: X64

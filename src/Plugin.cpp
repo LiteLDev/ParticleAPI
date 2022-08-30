@@ -11,7 +11,4 @@
  */
 void PluginInit()
 {
-    // Your code here
-    Logger logger;
-    logger.info("Hello, world!");
 }

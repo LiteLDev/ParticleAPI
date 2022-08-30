@@ -12,15 +12,11 @@
 
 // ***************************************************************************************
 
-// Please fill up the content here before developing your plugin!
+#define PLUGIN_NAME "ParticleAPI"
 
-static_assert(false, "Please modify your plugin information below and delete this line!");
+#define PLUGIN_INTRODUCTION ""
 
-#define PLUGIN_NAME "Plugin Name"
-
-#define PLUGIN_INTRODUCTION "Plugin Introduction"
-
-#define PLUGIN_AUTHOR "Plugin Author Name"
+#define PLUGIN_AUTHOR "OEOTYAN"
 
 // The version of your plugin. If you do not know how to set it, please refer
 // to https://semver.org/ .

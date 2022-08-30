@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
 
-project(Plugin)
+project(ParticleAPI)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -22,6 +22,7 @@ link_directories(
 
 add_definitions(
     -D"NDEBUG"
+    -D"PARTICLE_EXPORTS"
     -D"NOMINMAX"
     -D"TEMPLATE_EXPORTS"
     -D"UNICODE"
@@ -63,8 +64,8 @@ add_link_options(
     /SUBSYSTEM:CONSOLE
 )
 
-add_library(Plugin SHARED ${SRC_FILES_DIR})
+add_library(ParticleAPI SHARED ${SRC_FILES_DIR})
 
-add_custom_command(TARGET Plugin PRE_BUILD
+add_custom_command(TARGET ParticleAPI PRE_BUILD
     COMMAND cmd /c ${PROJECT_SOURCE_DIR}/PrepareLibraries.cmd ${PROJECT_SOURCE_DIR}
 )
