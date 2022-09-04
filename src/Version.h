@@ -29,12 +29,6 @@
 // and PLUGIN_VERSION_RELEASE
 #define PLUGIN_VERSION_STATUS PLUGIN_VERSION_DEV
 
-// The target protocol version of your plugin. If you do not know how to set it,
-// please start the latest version of LiteLoaderBDS and get the protocol version.
-// If you are confident about the version compatibility of your plugin, you can
-// just comment this line (NOT RECOMMENDED).
-#define TARGET_BDS_PROTOCOL_VERSION 544
-
 // ***************************************************************************************
 
 // File version information, which is used in Resource.rc

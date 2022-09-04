@@ -22,7 +22,6 @@ link_directories(
 
 add_definitions(
     -D"NDEBUG"
-    -D"PARTICLE_EXPORTS"
     -D"NOMINMAX"
     -D"TEMPLATE_EXPORTS"
     -D"UNICODE"

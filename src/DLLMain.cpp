@@ -15,24 +15,6 @@
 
 void PluginInit();
 
-void CheckProtocolVersion()
-{
-
-#ifdef TARGET_BDS_PROTOCOL_VERSION
-
-    Logger logger(PLUGIN_NAME);
-
-    auto currentProtocol = LL::getServerProtocolVersion();
-    if (TARGET_BDS_PROTOCOL_VERSION != currentProtocol)
-    {
-        logger.warn("Protocol version mismatched! Target version: {}. Current version: {}.",
-                    TARGET_BDS_PROTOCOL_VERSION, currentProtocol);
-        logger.warn("This will most likely crash the server. Please use the plugin that matches the BDS version!");
-    }
-
-#endif // TARGET_BDS_PROTOCOL_VERSION
-}
-
 BOOL APIENTRY DllMain(HMODULE hModule,
                       DWORD ul_reason_for_call,
                       LPVOID lpReserved)
@@ -62,7 +44,6 @@ extern "C"
     _declspec(dllexport) void onPostInit()
     {
         std::ios::sync_with_stdio(false);
-        CheckProtocolVersion();
         PluginInit();
     }
 }
