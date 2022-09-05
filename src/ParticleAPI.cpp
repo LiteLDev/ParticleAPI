@@ -215,7 +215,7 @@ void PTAPI_drawCircle(int displayRadius, const Vec3& originPoint, char facing, d
         case ParticleCUI::Direction::POS_Y:
             for (int i = 0; i < len; i++) {
                 auto point = originPoint +
-                             Vec3(radius * cos(i / (double)len * M_PI), 0.0, radius * sin(i / (double)len * _2PI_));
+                             Vec3(radius * cos(i / (double)len * _2PI_), 0.0, radius * sin(i / (double)len * _2PI_));
                 PTAPI_drawPoint(displayRadius, point, dimId, lineWidth, color);
             }
             break;
