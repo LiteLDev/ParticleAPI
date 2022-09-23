@@ -22,13 +22,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
-        LL::registerPlugin(
-            PLUGIN_NAME,
-            PLUGIN_INTRODUCTION,
-            LL::Version(PLUGIN_VERSION_MAJOR, PLUGIN_VERSION_MINOR, PLUGIN_VERSION_REVISION, PLUGIN_LLVERSION_STATUS),
-            std::map<std::string, std::string>{
-                {"Author", PLUGIN_AUTHOR},
-            });
+            ll::registerPlugin(PLUGIN_NAME, PLUGIN_INTRODUCTION, ll::Version(PLUGIN_VERSION_MAJOR, PLUGIN_VERSION_MINOR, PLUGIN_VERSION_REVISION, PLUGIN_LLVERSION_STATUS), {{"Author", PLUGIN_AUTHOR}});
         break;
 
     case DLL_THREAD_ATTACH:
