@@ -13,12 +13,13 @@ file(GLOB_RECURSE SRC_FILES_DIR
 )
 
 include_directories(
-    ${CMAKE_SOURCE_DIR}/SDK/include/llapi
-    ${CMAKE_SOURCE_DIR}/SDK/include
+    ${CMAKE_SOURCE_DIR}/LiteLoader/include
+    ${CMAKE_SOURCE_DIR}/LiteLoader/include/llapi
+    ${CMAKE_SOURCE_DIR}/LiteLoader/third-party/include
 )
 
 link_directories(
-    ${CMAKE_SOURCE_DIR}/SDK/Lib
+    ${CMAKE_SOURCE_DIR}/LiteLoader/lib
 )
 
 add_definitions(
@@ -66,6 +67,16 @@ add_link_options(
 
 add_library(ParticleAPI SHARED ${SRC_FILES_DIR})
 
-add_custom_command(TARGET ParticleAPI PRE_BUILD
-    COMMAND cmd /c ${PROJECT_SOURCE_DIR}/PrepareLibraries.cmd ${PROJECT_SOURCE_DIR}
+target_link_libraries(ParticleAPI LiteLoader
+        "${CMAKE_SOURCE_DIR}/LiteLoader/lib/bedrock_server_api.lib"
+        "${CMAKE_SOURCE_DIR}/LiteLoader/lib/bedrock_server_var.lib"
+        SymDBHelper
+)
+
+add_custom_command(
+        TARGET ParticleAPI POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ParticleAPI> ${CMAKE_BINARY_DIR}/output/plugins/LiteLoader/ParticleAPI.dll
+        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_PDB_FILE:ParticleAPI> ${CMAKE_BINARY_DIR}/pdb/ParticleAPI.pdb
+        COMMENT "Copying ParticleAPI DLL and PDB to output directory"
+        VERBATIM
 )

@@ -2,10 +2,11 @@
 // Created by OEOTYAN on 2022/08/27.
 //
 #include "ParticleAPI.h"
-#include "MC/Player.hpp"
-#include "MC/Dimension.hpp"
-#include "MC/Level.hpp"
-#include "Mc/AABB.hpp"
+#include <mc/Player.hpp>
+#include <mc/Dimension.hpp>
+#include <mc/Level.hpp>
+#include <mc/AABB.hpp>
+#include <mc/Types.hpp>
 namespace {
 template <typename T>
 std::string fto_string(const T a_value) {
@@ -51,7 +52,7 @@ std::vector<std::pair<double, int>> binSplit(double start, double end) {
 
 extern "C" {
 void PTAPI_spawnParticle(int displayRadius, Vec3 const& pos, std::string const& particleName, int dimId){
-    auto diminsion = Global<Level>->getDimension(dimId);
+    auto diminsion = (Dimension*)Global<Level>->getDimension(dimId).mHandle.lock().get();
     diminsion->forEachPlayer([&](Player& player) {
         if (displayRadius == UINT_MAX || player.getPosition().distanceTo(pos) < displayRadius) {
             player.sendSpawnParticleEffectPacket(pos, dimId, particleName);
