@@ -51,9 +51,8 @@ std::vector<std::pair<double, int>> binSplit(double start, double end) {
 
 
 extern "C" {
-void PTAPI_spawnParticle(int displayRadius, Vec3 const& pos, std::string const& particleName, int dimId){
-    auto diminsion = (Dimension*)Global<Level>->getDimension(dimId).mHandle.lock().get();
-    diminsion->forEachPlayer([&](Player& player) {
+void PTAPI_spawnParticle(int displayRadius, Vec3 const& pos, std::string const& particleName, int dimId) {
+    Level::getDimensionPtr(dimId)->forEachPlayer([&](Player& player) {
         if (displayRadius == UINT_MAX || player.getPosition().distanceTo(pos) < displayRadius) {
             player.sendSpawnParticleEffectPacket(pos, dimId, particleName);
         }
@@ -161,14 +160,14 @@ void PTAPI_drawAxialLine(int displayRadius, bool highDetial, bool doubleSide, co
     axisString += getParticleColorType(color);
     for (auto points : positionList) {
         std::string particleName = axisString + fto_string(points.second);
-        PTAPI_spawnParticle(displayRadius,points.first, "ll:linep" + particleName, dimId);
+        PTAPI_spawnParticle(displayRadius, points.first, "ll:linep" + particleName, dimId);
         if (highDetial) {
-            PTAPI_spawnParticle(displayRadius,points.first, "ll:linem" + particleName, dimId);
+            PTAPI_spawnParticle(displayRadius, points.first, "ll:linem" + particleName, dimId);
         }
         if (doubleSide) {
-            PTAPI_spawnParticle(displayRadius,points.first, "ll:line_backp" + particleName, dimId);
+            PTAPI_spawnParticle(displayRadius, points.first, "ll:line_backp" + particleName, dimId);
             if (highDetial) {
-                PTAPI_spawnParticle(displayRadius,points.first, "ll:line_backm" + particleName, dimId);
+                PTAPI_spawnParticle(displayRadius, points.first, "ll:line_backm" + particleName, dimId);
             }
         }
     }
@@ -182,7 +181,7 @@ void PTAPI_drawOrientedLine(int displayRadius, const Vec3& start, const Vec3& en
         PTAPI_drawPoint(displayRadius, point, dimId, lineWidth, color);
     }
 }
-void PTAPI_drawCuboid(int displayRadius, bool highDetial, bool doubleSide, const AABB& aabb, int dimId, enum class mce::ColorPalette color){
+void PTAPI_drawCuboid(int displayRadius, bool highDetial, bool doubleSide, const AABB& aabb, int dimId, enum class mce::ColorPalette color) {
     auto p1 = aabb.min, p2 = aabb.max;
     auto dx = p2.x - p1.x;
     auto dy = p2.y - p1.y;
