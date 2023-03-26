@@ -56,7 +56,7 @@ add_link_options(
     /DLL
     /IGNORE:4199
     /INCREMENTAL:NO
-    /LTCG:INCREMENTAL
+    /LTCG
     /MANIFESTUAC:NO
     /MACHINE:X64
     /NOLOGO
@@ -68,15 +68,15 @@ add_link_options(
 add_library(ParticleAPI SHARED ${SRC_FILES_DIR})
 
 target_link_libraries(ParticleAPI LiteLoader
-        "${CMAKE_SOURCE_DIR}/LiteLoader/lib/bedrock_server_api.lib"
-        "${CMAKE_SOURCE_DIR}/LiteLoader/lib/bedrock_server_var.lib"
-        SymDBHelper
+    "${CMAKE_SOURCE_DIR}/LiteLoader/lib/bedrock_server_api.lib"
+    "${CMAKE_SOURCE_DIR}/LiteLoader/lib/bedrock_server_var.lib"
+    SymDBHelper
 )
 
 add_custom_command(
-        TARGET ParticleAPI POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ParticleAPI> ${CMAKE_BINARY_DIR}/output/plugins/LiteLoader/ParticleAPI.dll
-        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_PDB_FILE:ParticleAPI> ${CMAKE_BINARY_DIR}/pdb/ParticleAPI.pdb
-        COMMENT "Copying ParticleAPI DLL and PDB to output directory"
-        VERBATIM
+    TARGET ParticleAPI POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ParticleAPI> ${CMAKE_BINARY_DIR}/output/plugins/LiteLoader/ParticleAPI.dll
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_PDB_FILE:ParticleAPI> ${CMAKE_BINARY_DIR}/pdb/ParticleAPI.pdb
+    COMMENT "Copying ParticleAPI DLL and PDB to output directory"
+    VERBATIM
 )
