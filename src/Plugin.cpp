@@ -15,7 +15,7 @@
 void PluginInit()
 {
     Event::ResourcePackInitEvent::subscribe([](const Event::ResourcePackInitEvent& ev) {
-        ev.mRepo->setCustomResourcePackPath(PackType::PackType_Resources,".\\plugins\\LiteLoader\\ResourcePacks");
+        ev.mRepo->setCustomResourcePackPath(PackType::Resources,".\\plugins\\LiteLoader\\ResourcePacks");
         return true;
     });
 }
